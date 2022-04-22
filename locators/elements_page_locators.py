@@ -26,3 +26,13 @@ class CheckBoxPageLocators:
     CHECKED_ITOM = (By.CSS_SELECTOR, "svg[class='rct-icon rct-icon-check']")
     TITLE_ITEM = (".//ancestor::span[@class='rct-text']")
     OUTPUT_RESULT = (By.XPATH, "//span[@class='text-success']")
+
+class CheckRadioButtonLocators:
+
+    SELECT_YES = (By.XPATH, "//label[contains(text(),'Yes')]")
+    SELECT_IMPRESSIVE = (By.XPATH, "//label[contains(text(),'Impressive')]")
+    SELECT_NO = (By.XPATH, "//label[contains(text(),'No')]")
+    OUTPUT_RESULT = (By.XPATH, "//span[@class='text-success']")
+
+
+
