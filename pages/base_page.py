@@ -7,6 +7,8 @@ from selenium.webdriver.common.by import By
 
 class BasePage:
 
+
+
     def __init__(self, driver, url):
         self.driver = driver
         self.url = url
@@ -14,7 +16,7 @@ class BasePage:
     def open(self):
         self.driver.get(self.url)
 
-    def element_is_visible(self, locator, timeout=15):
+    def element_is_visible(self, locator, timeout=10):
         return wait(driver=self.driver, timeout=timeout).until(EC.visibility_of_element_located(locator))
 
     def elements_are_visible(self, locator, timeout=15):
@@ -38,3 +40,7 @@ class BasePage:
 
     def scroll_down(self):
         self.driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
+
+
+
+

@@ -1,8 +1,11 @@
 import random
 import time
 
+from selenium.webdriver import ActionChains
+from selenium.webdriver.common.by import By
+
 from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, CheckRadioButtonLocators, \
-    CheckWebTableLocators
+    CheckWebTableLocators, CheckClickButton
 from pages.base_page import BasePage
 from generator.generator import generator_person
 
@@ -115,13 +118,43 @@ class CheckWebTable(BasePage):
         return data
 
     def search_some_person(self, key_word):
-        self.element_is_present(self.locators.SEARCH_INPUT).send_keys(key_word)
+        self.element_is_visible(self.locators.SEARCH_INPUT).send_keys(key_word)
 
     def check_search_person(self):
+        time.sleep(1)
         delete_button = self.element_is_visible(self.locators.DELETE_BUTTON)
-        time.sleep(3)
+        #delete_button = self.go_to_element(self.locators.DELETE_BUTTON)
+        time.sleep(1)
         row = delete_button.find_element_by_xpath(self.locators.ROW_PARENT)
-        time.sleep(3)
+        time.sleep(1)
         return row.text.splitlines()
+
+class CheckClickButton(BasePage):
+
+    locators = CheckClickButton
+
+    def double_click_button(self):
+        source = self.element_is_clickable(self.locators.DOUBLE_CLICK_BUTTON)
+        action = ActionChains(self.driver)
+        action.double_click(source).perform()
+
+    def right_click_button(self):
+        source = self.element_is_visible(self.locators.RIGHT_CLICK_BUTTON)
+        action = ActionChains(self.driver)
+        action.context_click(source).perform()
+
+    def click_button(self):
+        self.element_is_visible(self.locators.CLICK_BUTTON).click()
+
+    def check_result(self):
+        result_double_click = self.element_is_present(self.locators.OUTPUT_RESULT_DOUBLE_CLICK_BUTTON)
+        result_right_click = self.element_is_present(self.locators.OUTPUT_RESULT_RIGHT_CLICK_BUTTON)
+        result_click = self.element_is_present(self.locators.OUTPUT_RESULT_CLICK_BUTTON)
+        return result_double_click.text, result_right_click.text, result_click.text
+
+
+
+
+
 
 

@@ -48,8 +48,16 @@ class CheckWebTableLocators:
 
     #tables
     FULL_PEOPLE_LIST = (By.XPATH, "//div[@class='rt-tr-group']")
-    SEARCH_INPUT = (By.XPATH, "//input[@class='form-control']")
+    SEARCH_INPUT = (By.XPATH, "//input[@id='searchBox']")
     DELETE_BUTTON = (By.XPATH, "//span[@title='Delete']")
     ROW_PARENT = ".//ancestor::div[@class='rt-tr-group']"
 
 
+class CheckClickButton:
+
+    DOUBLE_CLICK_BUTTON = (By.XPATH, "//button[@class='btn btn-primary']")
+    RIGHT_CLICK_BUTTON = (By.XPATH, "//button[@id='rightClickBtn']")
+    CLICK_BUTTON = (By.XPATH, "//button[text()='Click Me']")
+    OUTPUT_RESULT_DOUBLE_CLICK_BUTTON = (By.XPATH, "//p[@id='doubleClickMessage']")
+    OUTPUT_RESULT_RIGHT_CLICK_BUTTON = (By.XPATH, "//p[@id='rightClickMessage']")
+    OUTPUT_RESULT_CLICK_BUTTON = (By.XPATH, "//p[@id='dynamicClickMessage']")
