@@ -48,4 +48,8 @@ class CheckWebTableLocators:
 
     #tables
     FULL_PEOPLE_LIST = (By.XPATH, "//div[@class='rt-tr-group']")
+    SEARCH_INPUT = (By.XPATH, "//input[@class='form-control']")
+    DELETE_BUTTON = (By.XPATH, "//span[@title='Delete']")
+    ROW_PARENT = ".//ancestor::div[@class='rt-tr-group']"
+
 
