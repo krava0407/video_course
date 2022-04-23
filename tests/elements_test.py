@@ -1,3 +1,4 @@
+import random
 import time
 
 from pages.base_page import BasePage
@@ -50,7 +51,17 @@ class TestElements:
         def test_web_table_add_person(self, driver):
             check_web_table_page = CheckWebTable(driver, "https://demoqa.com/webtables")
             check_web_table_page.open()
-            check_web_table_page.add_new_person()
-            time.sleep(5)
+            new_person = check_web_table_page.add_new_person()
+            table_result = check_web_table_page.check_add_person()
+            assert new_person in table_result
+
+        def test_web_table_search_person(self, driver):
+            check_web_table_page = CheckWebTable(driver, "https://demoqa.com/webtables")
+            check_web_table_page.open()
+            key_word = check_web_table_page.add_new_person()[random.randint(0,5)]
+            check_web_table_page.search_some_person(key_word)
+            table_result = check_web_table_page.check_search_person()
+            assert key_word in table_result
+
 
 

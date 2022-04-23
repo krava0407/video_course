@@ -1,4 +1,5 @@
 import random
+import time
 
 from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, CheckRadioButtonLocators, \
     CheckWebTableLocators
@@ -85,10 +86,9 @@ class CheckWebTable(BasePage):
     locators = CheckWebTableLocators
 
     def add_new_person(self):
-        count = 5
+        count = 1
         while count != 0:
             print(' ')
-            print(f'First Count = {count}')
             personal_info = next(generator_person())
             first_name = personal_info.first_name
             last_name = personal_info.last_name
@@ -105,5 +105,23 @@ class CheckWebTable(BasePage):
             self.element_is_visible(self.locators.DEPARTMENT_INPUT).send_keys(department)
             self.element_is_visible(self.locators.SUBMIT_BUTTON).click()
             count -= 1
-            print(f'Last Count = {count}')
-            #return first_name, last_name, email, age, salary, department
+        return [first_name, last_name, str(age), email, str(salary), department]
+
+    def check_add_person(self):
+        people_list = self.element_are_present(self.locators.FULL_PEOPLE_LIST)
+        data = []
+        for item in people_list:
+            data.append(item.text.splitlines())
+        return data
+
+    def search_some_person(self, key_word):
+        self.element_is_present(self.locators.SEARCH_INPUT).send_keys(key_word)
+
+    def check_search_person(self):
+        delete_button = self.element_is_visible(self.locators.DELETE_BUTTON)
+        time.sleep(3)
+        row = delete_button.find_element_by_xpath(self.locators.ROW_PARENT)
+        time.sleep(3)
+        return row.text.splitlines()
+
+

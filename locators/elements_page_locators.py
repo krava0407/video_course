@@ -36,6 +36,7 @@ class CheckRadioButtonLocators:
 
 class CheckWebTableLocators:
 
+    #add person forms
     ADD_BUTTON = (By.XPATH, "//button[@id='addNewRecordButton']")
     FIRST_NAME_INPUT =(By.XPATH, "//input[@id='firstName']")
     LAST_NAME_INPUT =(By.XPATH, "//input[@id='lastName']")
@@ -44,5 +45,11 @@ class CheckWebTableLocators:
     SALARY_INPUT =(By.XPATH, "//input[@id='salary']")
     DEPARTMENT_INPUT =(By.XPATH, "//input[@id='department']")
     SUBMIT_BUTTON = (By.XPATH, "//button[@id='submit']")
+
+    #tables
+    FULL_PEOPLE_LIST = (By.XPATH, "//div[@class='rt-tr-group']")
+    SEARCH_INPUT = (By.XPATH, "//input[@class='form-control']")
+    DELETE_BUTTON = (By.XPATH, "//span[@title='Delete']")
+    ROW_PARENT = ".//ancestor::div[@class='rt-tr-group']"
 
 
