@@ -65,7 +65,7 @@ class TestElements:
             print(table_result)
             assert key_word in table_result
 
-    class TestClick:
+    class TestClickButtons:
 
         def test_click(self, driver):
             test_click_button = CheckClickButton(driver, "https://demoqa.com/buttons")
