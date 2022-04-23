@@ -34,5 +34,15 @@ class CheckRadioButtonLocators:
     SELECT_NO = (By.XPATH, "//label[contains(text(),'No')]")
     OUTPUT_RESULT = (By.XPATH, "//span[@class='text-success']")
 
+class CheckWebTableLocators:
+
+    ADD_BUTTON = (By.XPATH, "//button[@id='addNewRecordButton']")
+    FIRST_NAME_INPUT =(By.XPATH, "//input[@id='firstName']")
+    LAST_NAME_INPUT =(By.XPATH, "//input[@id='lastName']")
+    EMAIL_INPUT =(By.XPATH, "//input[@id='userEmail']")
+    AGE_INPUT =(By.XPATH, "//input[@id='age']")
+    SALARY_INPUT =(By.XPATH, "//input[@id='salary']")
+    DEPARTMENT_INPUT =(By.XPATH, "//input[@id='department']")
+    SUBMIT_BUTTON = (By.XPATH, "//button[@id='submit']")
 
 

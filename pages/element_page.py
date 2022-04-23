@@ -1,6 +1,7 @@
 import random
 
-from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, CheckRadioButtonLocators
+from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, CheckRadioButtonLocators, \
+    CheckWebTableLocators
 from pages.base_page import BasePage
 from generator.generator import generator_person
 
@@ -78,3 +79,31 @@ class CheckRadioButton(BasePage):
 
     def get_output_result(self):
         return self.element_is_present(self.locators.OUTPUT_RESULT).text
+
+
+class CheckWebTable(BasePage):
+    locators = CheckWebTableLocators
+
+    def add_new_person(self):
+        count = 5
+        while count != 0:
+            print(' ')
+            print(f'First Count = {count}')
+            personal_info = next(generator_person())
+            first_name = personal_info.first_name
+            last_name = personal_info.last_name
+            email = personal_info.email
+            age = personal_info.age
+            salary = personal_info.salary
+            department = personal_info.department
+            self.element_is_clickable(self.locators.ADD_BUTTON).click()
+            self.element_is_visible(self.locators.FIRST_NAME_INPUT).send_keys(first_name)
+            self.element_is_visible(self.locators.LAST_NAME_INPUT).send_keys(last_name)
+            self.element_is_visible(self.locators.EMAIL_INPUT).send_keys(email)
+            self.element_is_visible(self.locators.AGE_INPUT).send_keys(age)
+            self.element_is_visible(self.locators.SALARY_INPUT).send_keys(salary)
+            self.element_is_visible(self.locators.DEPARTMENT_INPUT).send_keys(department)
+            self.element_is_visible(self.locators.SUBMIT_BUTTON).click()
+            count -= 1
+            print(f'Last Count = {count}')
+            #return first_name, last_name, email, age, salary, department
