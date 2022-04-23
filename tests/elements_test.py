@@ -50,7 +50,9 @@ class TestElements:
         def test_web_table_add_person(self, driver):
             check_web_table_page = CheckWebTable(driver, "https://demoqa.com/webtables")
             check_web_table_page.open()
-            check_web_table_page.add_new_person()
-            time.sleep(5)
+            new_person = check_web_table_page.add_new_person()
+            table_result = check_web_table_page.check_add_person()
+            assert new_person in table_result
+
 
 

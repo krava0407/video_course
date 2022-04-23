@@ -85,7 +85,7 @@ class CheckWebTable(BasePage):
     locators = CheckWebTableLocators
 
     def add_new_person(self):
-        count = 5
+        count = 1
         while count != 0:
             print(' ')
             print(f'First Count = {count}')
@@ -105,5 +105,11 @@ class CheckWebTable(BasePage):
             self.element_is_visible(self.locators.DEPARTMENT_INPUT).send_keys(department)
             self.element_is_visible(self.locators.SUBMIT_BUTTON).click()
             count -= 1
-            print(f'Last Count = {count}')
-            #return first_name, last_name, email, age, salary, department
+        return [first_name, last_name, str(age), email, str(salary), department]
+
+    def check_add_person(self):
+        people_list = self.element_are_present(self.locators.FULL_PEOPLE_LIST)
+        data = []
+        for item in people_list:
+            data.append(item.text.splitlines())
+        return data
