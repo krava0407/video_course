@@ -5,16 +5,11 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
 
-
-
-
 class BasePage:
 
     def __init__(self, driver, url):
         self.driver = driver
         self.url = url
-
-
 
     def open(self):
         self.driver.get(self.url)
@@ -38,19 +33,8 @@ class BasePage:
         return wait(driver=self.driver, timeout=timeout).until(EC.element_to_be_clickable(locator))
 
     def go_to_element(self, element):
-        self.driver.execute_script("arguments[0].scrollIntoView();", element)        #"""execute_script - метод который позволяет запускать скрипты"""
+        self.driver.execute_script("arguments[0].scrollIntoView();",
+                                   element)  # """execute_script - метод который позволяет запускать скрипты"""
 
     def scroll_down(self):
         self.driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
-
-    def read_f_n(self, locator):
-        text = self.driver.find_element(By.XPATH, locator).text.split(':')[1]
-        return text
-
-    def find_el(self, locator):
-        return self.driver.find_element(By.XPATH, locator)
-
-
-
-
-
