@@ -11,7 +11,6 @@ class TestElements:
         def test_text_box(self, driver):
             text_box_page = TextBoxPage(driver, "https://demoqa.com/text-box")
             text_box_page.open()
-            # text_box_page.fill_all_fields()
             full_name, email, current_address, permanent_address = text_box_page.fill_all_fields()
             output_name, output_email, output_cur_addr, output_per_addr = text_box_page.check_filled_form()
             assert full_name == output_name
@@ -65,6 +64,40 @@ class TestElements:
             print(table_result)
             assert key_word in table_result
 
+        def test_change_info(self, driver):
+            check_web_table_page = CheckWebTable(driver, "https://demoqa.com/webtables")
+            check_web_table_page.open()
+            last_name = check_web_table_page.add_new_person()[1]
+            check_web_table_page.search_some_person(last_name)
+            age = check_web_table_page.update_person_info()
+            row = check_web_table_page.check_search_person()
+            assert age in row
+
+        def test_delete_person(self, driver):
+            check_web_table_page = CheckWebTable(driver, "https://demoqa.com/webtables")
+            check_web_table_page.open()
+            email = check_web_table_page.add_new_person()[3]
+            check_web_table_page.search_some_person(email)
+            check_web_table_page.del_person()
+            text = check_web_table_page.check_deleted()
+            assert text == "No rows found"
+
+        def test_change_count_row(self, driver):
+            check_web_table_page = CheckWebTable(driver, "https://demoqa.com/webtables")
+            check_web_table_page.open()
+            count = check_web_table_page.select_up_to_some_rows()
+            assert count == [5,10,20,25,50,100]
+
+
+
+
+
+
+
+
+
+
+
     class TestClickButtons:
 
         def test_click(self, driver):
@@ -77,6 +110,8 @@ class TestElements:
             assert "You have done a double click" in output_result, "Don't work double click"
             assert "You have done a right click" in output_result, "Don't work right-click button"
             assert "You have done a dynamic click" in output_result, "Don't work click button"
+
+
 
 
 
