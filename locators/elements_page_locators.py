@@ -68,3 +68,7 @@ class CheckClickButton:
     OUTPUT_RESULT_DOUBLE_CLICK_BUTTON = (By.XPATH, "//p[@id='doubleClickMessage']")
     OUTPUT_RESULT_RIGHT_CLICK_BUTTON = (By.XPATH, "//p[@id='rightClickMessage']")
     OUTPUT_RESULT_CLICK_BUTTON = (By.XPATH, "//p[@id='dynamicClickMessage']")
+
+class CheckClickLinks:
+    LINK_FIRST = (By.XPATH, "//a[@id='simpleLink']")
+    LINK_SECOND = (By.XPATH, "//a[@id='dynamicLink']")

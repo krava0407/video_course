@@ -5,7 +5,7 @@ from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 
 from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, CheckRadioButtonLocators, \
-    CheckWebTableLocators, CheckClickButton
+    CheckWebTableLocators, CheckClickButton, CheckClickLinks
 from pages.base_page import BasePage
 from generator.generator import generator_person
 
@@ -182,8 +182,41 @@ class CheckClickButton(BasePage):
         return result_double_click.text, result_right_click.text, result_click.text
 
 
+class CheckClickLinksCl(BasePage):
+
+    locators = CheckClickLinks
 
 
+    #вариант 1
+    def click_simple_link(self):
+        return self.element_is_clickable(self.locators.LINK_FIRST).click()
 
+    def click_dynamic_link(self):
+        return self.element_is_clickable(self.locators.LINK_SECOND).click()
 
+    def switch_to_0(self):
+        self.driver.switch_to.window(self.driver.window_handles[0])      #переключение(активация) на нужное окно
 
+    def switch_to_2(self):
+        self.driver.switch_to.window(self.driver.window_handles[2])
+
+    def switch_to_1(self):
+        self.driver.switch_to.window(self.driver.window_handles[1])
+
+    def get_link(self):
+        return self.driver.current_url
+
+    #вариант 2
+    def check_links(self):
+        list_links = [self.locators.LINK_FIRST, self.locators.LINK_SECOND]
+        output_links = []
+        for link in list_links:
+            self.element_is_visible(link).click()
+            self.driver.switch_to.window(self.driver.window_handles[1])
+            output_links.append(self.driver.current_url)
+            self.close_active_tab()
+            self.driver.switch_to.window(self.driver.window_handles[0])
+        return output_links
+
+    def close_link(self):
+        self.close_active_tab()

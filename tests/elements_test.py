@@ -2,10 +2,13 @@ import random
 import time
 
 from pages.base_page import BasePage
-from pages.element_page import TextBoxPage, CheckBoxPage, CheckRadioButton, CheckWebTable, CheckClickButton
+from pages.element_page import TextBoxPage, CheckBoxPage, CheckRadioButton, CheckWebTable, CheckClickButton, \
+    CheckClickLinksCl
+from locators.elements_page_locators import CheckClickLinks as locator
 
 
 class TestElements:
+
     class TestTextBox:
 
         def test_text_box(self, driver):
@@ -88,16 +91,6 @@ class TestElements:
             count = check_web_table_page.select_up_to_some_rows()
             assert count == [5,10,20,25,50,100]
 
-
-
-
-
-
-
-
-
-
-
     class TestClickButtons:
 
         def test_click(self, driver):
@@ -110,6 +103,30 @@ class TestElements:
             assert "You have done a double click" in output_result, "Don't work double click"
             assert "You have done a right click" in output_result, "Don't work right-click button"
             assert "You have done a dynamic click" in output_result, "Don't work click button"
+
+    class TestLinks:
+
+        def test_link(self, driver):
+            test_click_link = CheckClickLinksCl(driver, "https://demoqa.com/links")
+            test_click_link.open()
+
+            # #вариант 1
+            # test_click_link.click_simple_link()
+            # test_click_link.switch_to_1()
+            # result_link = test_click_link.get_link()
+            # assert "https://demoqa.com/" == result_link
+            # test_click_link.close_active_tab()
+            # test_click_link.switch_to_0()
+            # test_click_link.click_dynamic_link()
+            # test_click_link.switch_to_1()
+            # result_link = test_click_link.get_link()
+            # assert "https://demoqa.com/" == result_link
+
+
+            #вариант 2
+            output_list = test_click_link.check_links()
+            assert "https://demoqa.com/", "https://demoqa.com/" == output_list
+
 
 
 

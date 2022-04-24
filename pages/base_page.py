@@ -41,6 +41,9 @@ class BasePage:
     def scroll_down(self):
         self.driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
 
+    def close_active_tab(self):
+        self.driver.close()
+
 
 
 
