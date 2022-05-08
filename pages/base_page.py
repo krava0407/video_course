@@ -1,13 +1,8 @@
 from selenium.webdriver.support.ui import WebDriverWait as wait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
 
 
 class BasePage:
-
-
 
     def __init__(self, driver, url):
         self.driver = driver
@@ -43,7 +38,3 @@ class BasePage:
 
     def close_active_tab(self):
         self.driver.close()
-
-
-
-

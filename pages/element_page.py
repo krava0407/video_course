@@ -1,13 +1,16 @@
+import base64
+import os
 import random
 import time
 
+import requests
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 
 from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, CheckRadioButtonLocators, \
-    CheckWebTableLocators, CheckClickButton, CheckClickLinks
+    CheckWebTableLocators, CheckClickLinksLocators, CheckClickButtonLocators, CheckUploadDownloadLocators
 from pages.base_page import BasePage
-from generator.generator import generator_person
+from generator.generator import generator_person, generator_file
 
 
 class TextBoxPage(BasePage):
@@ -160,7 +163,7 @@ class CheckWebTable(BasePage):
 
 class CheckClickButton(BasePage):
 
-    locators = CheckClickButton
+    locators = CheckClickButtonLocators
 
     def double_click_button(self):
         source = self.element_is_clickable(self.locators.DOUBLE_CLICK_BUTTON)
@@ -181,42 +184,61 @@ class CheckClickButton(BasePage):
         result_click = self.element_is_present(self.locators.OUTPUT_RESULT_CLICK_BUTTON)
         return result_double_click.text, result_right_click.text, result_click.text
 
+    #вариант 2, сделан по видео запись-8
+
+
 
 class CheckClickLinksCl(BasePage):
 
-    locators = CheckClickLinks
+    locators = CheckClickLinksLocators
 
-
-    #вариант 1
-    def click_simple_link(self):
-        return self.element_is_clickable(self.locators.LINK_FIRST).click()
-
-    def click_dynamic_link(self):
-        return self.element_is_clickable(self.locators.LINK_SECOND).click()
-
-    def switch_to_0(self):
-        self.driver.switch_to.window(self.driver.window_handles[0])      #переключение(активация) на нужное окно
-
-    def switch_to_2(self):
-        self.driver.switch_to.window(self.driver.window_handles[2])
-
-    def switch_to_1(self):
-        self.driver.switch_to.window(self.driver.window_handles[1])
-
-    def get_link(self):
-        return self.driver.current_url
-
-    #вариант 2
     def check_links(self):
-        list_links = [self.locators.LINK_FIRST, self.locators.LINK_SECOND]
+        list_locators = [self.locators.LINK_FIRST, self.locators.LINK_SECOND]
         output_links = []
-        for link in list_links:
-            self.element_is_visible(link).click()
-            self.driver.switch_to.window(self.driver.window_handles[1])
-            output_links.append(self.driver.current_url)
-            self.close_active_tab()
-            self.driver.switch_to.window(self.driver.window_handles[0])
+        print(output_links)
+        for link in list_locators:
+            simple_link = self.element_is_visible(self.locators.LINK_FIRST)
+            request = simple_link.get_attribute('href')
+            response = requests.get(request)
+            if response.status_code == requests.codes.ok:
+                self.element_is_visible(link).click()
+                self.driver.switch_to.window(self.driver.window_handles[1])
+                output_links.append(self.driver.current_url)
+                self.close_active_tab()
+                self.driver.switch_to.window(self.driver.window_handles[0])
+            else:
+                return link, response.status_code
         return output_links
 
-    def close_link(self):
-        self.close_active_tab()
+    def check_links_api(self, url):
+        response = requests.get(url)
+        if response.status_code == 200:
+            self.element_is_visible(self.locators.LINK_CREATED).click()
+        else:
+            return response.status_code
+
+
+class UploadDownloadPage(BasePage):
+    locators = CheckUploadDownloadLocators
+
+    def upload_file(self):
+        file_name, path = generator_file()
+        self.element_is_present(self.locators.UPLOAD_BUTTON).send_keys(path)
+        os.remove(path)
+        text = self.element_is_visible(self.locators.UPLOADED_FILE).text
+        return file_name.split("\\")[-1], text.split("\\")[-1]
+
+    def download_file(self):
+        link = self.element_is_clickable(self.locators.DOWNLOAD_BUTTON).get_attribute("href")
+        print(link)
+        link_b = base64.b64decode(link)
+        path_name_file = rf'C:\Users\Тол\PycharmProjects\test_site\test_file_{random.randint(0, 100)}.jpg'
+        with open(path_name_file, "wb+") as f:
+            offset = link_b.find(b'\xff\xd8')
+            f.write(link_b[offset:])
+            check_file = os.path.exists(path_name_file)
+            f.close()
+            os.remove(path_name_file)
+        return check_file
+
+

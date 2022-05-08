@@ -1,10 +1,7 @@
 import random
 import time
 
-from pages.base_page import BasePage
-from pages.element_page import TextBoxPage, CheckBoxPage, CheckRadioButton, CheckWebTable, CheckClickButton, \
-    CheckClickLinksCl
-from locators.elements_page_locators import CheckClickLinks as locator
+from pages.element_page import TextBoxPage, CheckBoxPage, CheckRadioButton, CheckWebTable, CheckClickButton, CheckClickLinksCl, UploadDownloadPage
 
 
 class TestElements:
@@ -106,26 +103,45 @@ class TestElements:
 
     class TestLinks:
 
-        def test_link(self, driver):
+        def test_link_opened_new_tab(self, driver):
             test_click_link = CheckClickLinksCl(driver, "https://demoqa.com/links")
             test_click_link.open()
-
-            # #вариант 1
-            # test_click_link.click_simple_link()
-            # test_click_link.switch_to_1()
-            # result_link = test_click_link.get_link()
-            # assert "https://demoqa.com/" == result_link
-            # test_click_link.close_active_tab()
-            # test_click_link.switch_to_0()
-            # test_click_link.click_dynamic_link()
-            # test_click_link.switch_to_1()
-            # result_link = test_click_link.get_link()
-            # assert "https://demoqa.com/" == result_link
-
-
-            #вариант 2
             output_list = test_click_link.check_links()
-            assert "https://demoqa.com/", "https://demoqa.com/" == output_list
+            assert "https://demoqa.com/" == output_list[0]
+            assert "https://demoqa.com/" == output_list[1]
+
+        def test_check_api_links(self, driver):
+            test_click_link = CheckClickLinksCl(driver, "https://demoqa.com/links")
+            test_click_link.open()
+            response_code = test_click_link.check_links_api(url="https://demoqa.com/bad-request")
+            assert response_code == 400
+            response_code = test_click_link.check_links_api(url="https://demoqa.com/Moved")
+            assert response_code == 301
+            response_code = test_click_link.check_links_api(url="https://demoqa.com/no-content")
+            assert response_code == 204
+            response_code = test_click_link.check_links_api(url="https://demoqa.com/Unauthorized")
+            assert response_code == 401
+            response_code = test_click_link.check_links_api(url="https://demoqa.com/Forbidden")
+            assert response_code == 403
+            #не смог подобрать адресс
+            #response_code = test_click_link.check_links_api(url="https://demoqa.com/Not-Found")
+            #assert response_code == 404
+
+    class TestUploadDownloadPage:
+
+        def test_upload_file(self, driver):
+            upload_download_page = UploadDownloadPage(driver, "https://demoqa.com/upload-download")
+            upload_download_page.open()
+            file_name, result = upload_download_page.upload_file()
+            assert file_name == result, "The file is not uploaded"
+
+        def test_download_file(self, driver):
+            upload_download_page = UploadDownloadPage(driver, "https://demoqa.com/upload-download")
+            upload_download_page.open()
+            check_file = upload_download_page.download_file()
+            assert check_file is True, "The file is not downloaded"
+
+
 
 
 

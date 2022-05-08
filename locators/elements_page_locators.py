@@ -61,7 +61,7 @@ class CheckWebTableLocators:
     COUNT_ROW_LIST = (By.XPATH, "//select[@aria-label='rows per page']")
 
 
-class CheckClickButton:
+class CheckClickButtonLocators:
     DOUBLE_CLICK_BUTTON = (By.XPATH, "//button[@class='btn btn-primary']")
     RIGHT_CLICK_BUTTON = (By.XPATH, "//button[@id='rightClickBtn']")
     CLICK_BUTTON = (By.XPATH, "//button[text()='Click Me']")
@@ -69,6 +69,25 @@ class CheckClickButton:
     OUTPUT_RESULT_RIGHT_CLICK_BUTTON = (By.XPATH, "//p[@id='rightClickMessage']")
     OUTPUT_RESULT_CLICK_BUTTON = (By.XPATH, "//p[@id='dynamicClickMessage']")
 
-class CheckClickLinks:
+class CheckClickLinksLocators:
     LINK_FIRST = (By.XPATH, "//a[@id='simpleLink']")
     LINK_SECOND = (By.XPATH, "//a[@id='dynamicLink']")
+    LINK_CREATED = (By.XPATH, "//a[@id='created']")
+    LINK_NO_CONTENT = (By.XPATH, "//a[@id='no-content']")
+    LINK_MOVED = (By.XPATH, "//a[@id='moved']")
+    LINK_BAD_REQUEST = (By.XPATH, "//a[@id='bad-request']")
+    LINK_UNAUTHORIZED = (By.XPATH, "//a[@id='unauthorized']")
+    LINK_FORBIDDEN = (By.XPATH, "//a[@id='forbidden']")
+    LINK_INVALID_URL = (By.XPATH, "//a[@id='invalid-url']")
+
+class CheckUploadDownloadLocators:
+    DOWNLOAD_BUTTON = (By.XPATH, "//a[@id='downloadButton']")
+    UPLOAD_BUTTON = (By.XPATH, "//input[@id='uploadFile']")
+    UPLOADED_FILE = (By.XPATH, "//p[@id='uploadedFilePath']")
+
+
+
+
+
+
+
