@@ -8,7 +8,9 @@ from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 
 from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, CheckRadioButtonLocators, \
-    CheckWebTableLocators, CheckClickLinksLocators, CheckClickButtonLocators, CheckUploadDownloadLocators
+    CheckWebTableLocators, CheckClickLinksLocators, CheckClickButtonLocators, CheckUploadDownloadLocators, \
+    CheckDinamicProperties
+
 from pages.base_page import BasePage
 from generator.generator import generator_person, generator_file
 
@@ -241,4 +243,22 @@ class UploadDownloadPage(BasePage):
             os.remove(path_name_file)
         return check_file
 
+class DinamicPrpetiesPage(BasePage):
+    locators = CheckDinamicProperties
 
+    def check_changed_color(self):
+        color_button = self.element_is_present(self.locators.COLOR_BUTTON)
+        color_button_before = color_button.value_of_css_property('color')
+        time.sleep(6)
+        color_button_after = color_button.value_of_css_property('color')
+        return color_button_after, color_button_before
+
+    def check_appear_of_button(self):
+        time.sleep(6)
+        self.element_is_present(self.locators.DINAMIC_BUTTON).click()
+
+    def open_search_page(self):
+        self.element_is_clickable(self.locators.BUTTON_ELEMENTS).click()
+        self.scroll_down()
+        time.sleep(6)
+        self.element_is_clickable(self.locators.BUTTON_DINAMIC_PROPERTIES).click()

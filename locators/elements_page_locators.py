@@ -21,7 +21,7 @@ class TextBoxPageLocators:
 class CheckBoxPageLocators:
     EXPAND_ALL_BUTTON = (By.XPATH, "//button[@title='Expand all']")
     COLLAPSE_ALL_BUTTON = (
-    By.XPATH, "//button[@title='Collapse all']//*[name()='svg']//*[name()='path' and contains(@d,'M19 3H5c-1')]")
+        By.XPATH, "//button[@title='Collapse all']//*[name()='svg']//*[name()='path' and contains(@d,'M19 3H5c-1')]")
     ITEM_LIST = (By.CSS_SELECTOR, "span[class='rct-title']")
     CHECKED_ITOM = (By.CSS_SELECTOR, "svg[class='rct-icon rct-icon-check']")
     TITLE_ITEM = (".//ancestor::span[@class='rct-text']")
@@ -69,6 +69,7 @@ class CheckClickButtonLocators:
     OUTPUT_RESULT_RIGHT_CLICK_BUTTON = (By.XPATH, "//p[@id='rightClickMessage']")
     OUTPUT_RESULT_CLICK_BUTTON = (By.XPATH, "//p[@id='dynamicClickMessage']")
 
+
 class CheckClickLinksLocators:
     LINK_FIRST = (By.XPATH, "//a[@id='simpleLink']")
     LINK_SECOND = (By.XPATH, "//a[@id='dynamicLink']")
@@ -80,14 +81,18 @@ class CheckClickLinksLocators:
     LINK_FORBIDDEN = (By.XPATH, "//a[@id='forbidden']")
     LINK_INVALID_URL = (By.XPATH, "//a[@id='invalid-url']")
 
+
 class CheckUploadDownloadLocators:
     DOWNLOAD_BUTTON = (By.XPATH, "//a[@id='downloadButton']")
     UPLOAD_BUTTON = (By.XPATH, "//input[@id='uploadFile']")
     UPLOADED_FILE = (By.XPATH, "//p[@id='uploadedFilePath']")
 
 
+class CheckDinamicProperties:
+    DINAMIC_BUTTON = (By.XPATH, "//button[@id='visibleAfter']")
+    COLOR_BUTTON = (By.CSS_SELECTOR, "button[id='colorChange']")
 
-
-
+    BUTTON_ELEMENTS = (By.XPATH, "//body/div[@id='app']/div[1]/div[1]/div[2]/div[1]/div[1]")
+    BUTTON_DINAMIC_PROPERTIES = (By.XPATH, "//span[contains(text(),'Dynamic Properties')]")
 
 

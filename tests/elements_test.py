@@ -1,7 +1,8 @@
 import random
 import time
 
-from pages.element_page import TextBoxPage, CheckBoxPage, CheckRadioButton, CheckWebTable, CheckClickButton, CheckClickLinksCl, UploadDownloadPage
+from pages.element_page import TextBoxPage, CheckBoxPage, CheckRadioButton, CheckWebTable, CheckClickButton, \
+    CheckClickLinksCl, UploadDownloadPage, DinamicPrpetiesPage
 
 
 class TestElements:
@@ -140,6 +141,22 @@ class TestElements:
             upload_download_page.open()
             check_file = upload_download_page.download_file()
             assert check_file is True, "The file is not downloaded"
+
+    class TestDinamicProperties:
+
+        def test_dinamic_properties(self, driver):
+            dinamic_properties_page = DinamicPrpetiesPage(driver=driver, url="https://demoqa.com/")
+            dinamic_properties_page.open()
+            dinamic_properties_page.open_search_page()
+            color_after, color_before = dinamic_properties_page.check_changed_color()
+            assert color_before != color_after
+
+        def test_appear_of_button(self, driver):
+            dinamic_properties_page = DinamicPrpetiesPage(driver=driver, url="https://demoqa.com/")
+            dinamic_properties_page.open()
+            dinamic_properties_page.open_search_page()
+            dinamic_properties_page.check_appear_of_button()
+
 
 
 

@@ -38,3 +38,5 @@ class BasePage:
 
     def close_active_tab(self):
         self.driver.close()
+
+
