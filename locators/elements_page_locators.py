@@ -91,6 +91,7 @@ class CheckUploadDownloadLocators:
 class CheckDinamicProperties:
     DINAMIC_BUTTON = (By.XPATH, "//button[@id='visibleAfter']")
     COLOR_BUTTON = (By.CSS_SELECTOR, "button[id='colorChange']")
+    BUTTON_ENABLE_AFTER = (By.XPATH, "//button[@id='enableAfter']")
 
     BUTTON_ELEMENTS = (By.XPATH, "//body/div[@id='app']/div[1]/div[1]/div[2]/div[1]/div[1]")
     BUTTON_DINAMIC_PROPERTIES = (By.XPATH, "//span[contains(text(),'Dynamic Properties')]")

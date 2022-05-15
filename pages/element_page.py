@@ -4,6 +4,7 @@ import random
 import time
 
 import requests
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 
@@ -246,6 +247,13 @@ class UploadDownloadPage(BasePage):
 class DinamicPrpetiesPage(BasePage):
     locators = CheckDinamicProperties
 
+    def check_enable_button(self):
+        try:
+            self.element_is_clickable(self.locators.BUTTON_ENABLE_AFTER)
+        except TimeoutException:
+            return False
+        return True
+
     def check_changed_color(self):
         color_button = self.element_is_present(self.locators.COLOR_BUTTON)
         color_button_before = color_button.value_of_css_property('color')
@@ -254,8 +262,12 @@ class DinamicPrpetiesPage(BasePage):
         return color_button_after, color_button_before
 
     def check_appear_of_button(self):
-        time.sleep(6)
-        self.element_is_present(self.locators.DINAMIC_BUTTON).click()
+        try:
+            self.element_is_present(self.locators.DINAMIC_BUTTON, 10)
+        except TimeoutException:
+            return False
+        return True
+
 
     def open_search_page(self):
         self.element_is_clickable(self.locators.BUTTON_ELEMENTS).click()

@@ -26,7 +26,7 @@ class BasePage:
     def element_is_not_visible(self, locator, timeout=5):
         return wait(driver=self.driver, timeout=timeout).until(EC.invisibility_of_element_located(locator))
 
-    def element_is_clickable(self, locator, timeout=5):
+    def element_is_clickable(self, locator, timeout=5.2):
         return wait(driver=self.driver, timeout=timeout).until(EC.element_to_be_clickable(locator))
 
     def go_to_element(self, element):

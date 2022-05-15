@@ -6,7 +6,6 @@ from pages.element_page import TextBoxPage, CheckBoxPage, CheckRadioButton, Chec
 
 
 class TestElements:
-
     class TestTextBox:
 
         def test_text_box(self, driver):
@@ -87,7 +86,7 @@ class TestElements:
             check_web_table_page = CheckWebTable(driver, "https://demoqa.com/webtables")
             check_web_table_page.open()
             count = check_web_table_page.select_up_to_some_rows()
-            assert count == [5,10,20,25,50,100]
+            assert count == [5, 10, 20, 25, 50, 100]
 
     class TestClickButtons:
 
@@ -124,9 +123,9 @@ class TestElements:
             assert response_code == 401
             response_code = test_click_link.check_links_api(url="https://demoqa.com/Forbidden")
             assert response_code == 403
-            #не смог подобрать адресс
-            #response_code = test_click_link.check_links_api(url="https://demoqa.com/Not-Found")
-            #assert response_code == 404
+            # не смог подобрать адресс
+            # response_code = test_click_link.check_links_api(url="https://demoqa.com/Not-Found")
+            # assert response_code == 404
 
     class TestUploadDownloadPage:
 
@@ -144,6 +143,14 @@ class TestElements:
 
     class TestDinamicProperties:
 
+        def test_check_enable_button(self, driver):
+            dinamic_properties_page = DinamicPrpetiesPage(driver=driver, url="https://demoqa.com/")
+            dinamic_properties_page.open()
+            dinamic_properties_page.open_search_page()
+            enable_button = dinamic_properties_page.check_enable_button()
+            print(enable_button)
+            assert enable_button == True
+
         def test_dinamic_properties(self, driver):
             dinamic_properties_page = DinamicPrpetiesPage(driver=driver, url="https://demoqa.com/")
             dinamic_properties_page.open()
@@ -155,13 +162,6 @@ class TestElements:
             dinamic_properties_page = DinamicPrpetiesPage(driver=driver, url="https://demoqa.com/")
             dinamic_properties_page.open()
             dinamic_properties_page.open_search_page()
-            dinamic_properties_page.check_appear_of_button()
-
-
-
-
-
-
-
-
-
+            appear = dinamic_properties_page.check_appear_of_button()
+            print(appear)
+            assert appear == True
