@@ -3,3 +3,4 @@ venv
 **/*sandbox.py
 *.DS_Store
 *.pyc
+*.idea
