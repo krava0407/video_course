@@ -1,6 +1,6 @@
 import time
 
-from pages.windowspage import WindowsPage, AlertsPage
+from pages.windowspage import WindowsPage, AlertsPage, FramePage, NestedFramePage
 
 
 class Test_alerts_frame_windows:
@@ -53,13 +53,23 @@ class Test_alerts_frame_windows:
             print(result_text)
             assert "You entered"+' '+text == result_text
 
-
-
     class TestFrames:
-        pass
+
+        def test_frames(self, driver):
+            frames = FramePage(driver=driver, url="https://demoqa.com/frames")
+            frames.open()
+            result_frame_1 = frames.check_frame(frame_num='frame1')
+            result_frame_2 = frames.check_frame(frame_num='frame2')
+            assert result_frame_1 == ['500px', '350px', 'This is a sample page']
+            assert result_frame_2 == ['100px', '100px', 'This is a sample page']
 
     class TestNestedFrames:
-        pass
+        def test_frames(self, driver):
+            frames = NestedFramePage(driver=driver, url="https://demoqa.com/nestedframes")
+            frames.open()
+            result_text = frames.check_nested_frames()
+            assert result_text == ['Parent frame', 'Child Iframe'], "Nested frame does not exist"
+
 
     class ModalDialogs:
         pass

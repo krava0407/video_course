@@ -22,3 +22,14 @@ class AlertsLocators:
 
     BUTTON_ALERTS_FRAME_WINDOWS = (By.XPATH, "//body/div[@id='app']/div[1]/div[1]/div[2]/div[1]/div[3]")
     BUTTON_ALERTS = (By.XPATH, "//body/div[@id='app']/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[3]/div[1]/ul[1]/li[2]")
+
+class FrameLocators:
+    FRAME_1 = (By.XPATH, "//iframe[@id='frame1']")
+    FRAME_2 = (By.XPATH, "//iframe[@id='frame2']")
+    FRAME_TEXT = (By.XPATH, "//h1[@id='sampleHeading']")
+
+class NestedFramesLocators:
+    PARENT_FRAME = (By.XPATH, "//iframe[@id='frame1']")
+    CHILD_FRAME = (By.XPATH, '//iframe[@srcdoc="<p>Child Iframe</p>"]')
+    PARENT_TEXT = (By.CSS_SELECTOR, "body")
+    CHILD_TEXT = (By.XPATH, "//p")
